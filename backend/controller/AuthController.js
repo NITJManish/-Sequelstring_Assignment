@@ -1,17 +1,16 @@
-import user from "../model/user.js"
+import User from "../model/user.js";
 import jwt from "jsonwebtoken";
 
 
-export const register=async (req,res)=>{
-    
-    try{
-        const user=await user.create(req.body);
-    const users=user.save();
-    res.status(201).json({message:"user register"});
-    }catch(error){
-        res.status(500).json({error:error});
+export const register = async (req, res) => {
+    try {
+        const user = await User.create(req.body);
+        res.status(201).json({ message: "User registered successfully", user }); 
+    } catch (error) {
+        console.error(error); 
+        res.status(500).json({ error: error.message }); 
     }
-}
+};
 
 export const login=async (req,res)=>{
     const {email,password}=req.body;

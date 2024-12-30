@@ -13,8 +13,8 @@ const userSchema=new mongoose.Schema({
     role:{
         type:String,
         enum:['RoleA','RoleB'],
-        require:true,
+        require:false,
     },
 })
 
-export default  mongoose.model("User",userSchema);
+export default mongoose.model("User",userSchema);

@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from 'dotenv';
 import { DBconnect } from "./config/Dbconnect.js";
 
-dotenv.config({path:"./config/config.env"});
+dotenv.config({path:"backend/config/config.env"});
 const app=express();
 
 
@@ -12,12 +12,12 @@ app.use(express.json());
 DBconnect();
 
 import routeAuth from "./route/auth.js"
-app.use("/api/",routeAuth);
+app.use("/api",routeAuth);
 
 //for testing 
-app.get("/",(req,res)=>{
-    res.send("Server started");
-})
+// app.get("/",(req,res)=>{
+//     res.send("Server started");
+// })
 
 
 app.listen(4000,()=>{
