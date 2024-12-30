@@ -1,5 +1,6 @@
 import User from "../model/user.js";
 import jwt from "jsonwebtoken";
+import Document from "../model/document.js"
 
 
 export const register = async (req, res) => {
@@ -14,7 +15,7 @@ export const register = async (req, res) => {
 
 export const login=async (req,res)=>{
     const {email,password}=req.body;
-    const user=await user.findOne({email});
+    const user=await User.findOne({email});
     if(!user){
         res.status(401).json({message:"user not found"});
     }
@@ -27,13 +28,14 @@ export const login=async (req,res)=>{
 
 export const Upload=async (req,res)=>{
   try{
-    const {title,content}=re.body;
+    const {title,content}=req.body;
   const document=await Document.create({
     title,
     content,
   });
-  res.status(201).json({message:"uploaded"});
+  res.status(201).json({message:"uploaded",document});
   }catch(error){
+    console.log(error)
   res.status(500).json({message:"error"});
 
   }
@@ -47,10 +49,11 @@ try{
       res.status(401).json({message:"Document not found"});
   }
   
-  document.status='Approved';
+  document.status='approved';
   await document.save();
   res.status(201).json({message:"docuement approved"});
 }catch(err){
+    console.log(err);
     res.status(500).json({message:"Document not approved"});
 }
 
